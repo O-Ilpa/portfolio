@@ -325,7 +325,7 @@ function Hero() {
             View Work
           </a>
           <a
-            href="/Omar-Ilpa-CV.pdf"
+            href="/Omar_Ilpa_Resume.pdf"
             download
             className="rounded-md bg-zinc-800 px-4 py-2.5 font-medium text-white hover:bg-zinc-700 transition-colors"
           >
@@ -386,7 +386,7 @@ function About() {
                 <li className="relative pl-10">
                   <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20"></span>
                   <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    2025 — Present
+                    Sep 2025 — Present
                   </div>
                   <h3 className="mt-1 font-medium">
                     Part-Time Software Engineer · Spiritual Data{" "}
@@ -1018,6 +1018,15 @@ export default function App() {
       <Contact />
       <footer className="border-t border-zinc-800 py-5 text-center text-sm text-zinc-500 animate-fade-in">
         © {new Date().getFullYear()} Omar Ilpa. All rights reserved.
+        <div className="flex gap-4 justify-center mt-2 text-2xl text-zinc-400">
+  <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" className="hover:text-black">
+    <FaGithub />
+  </a>
+  <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
+    <FaLinkedin />
+  </a>
+</div>
+
       </footer>
     </div>
   );
