@@ -1,35 +1,68 @@
 @import "tailwindcss";
 
 @layer base {
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100%;
   }
 }
 
 @layer utilities {
   @keyframes fade-in {
-    from { opacity: 0 }
-    to { opacity: 1 }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   @keyframes slide-up {
-    from { opacity: 0; transform: translateY(16px) }
-    to { opacity: 1; transform: translateY(0) }
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   @keyframes glow {
-    0%, 100% { box-shadow: 0 0 0 rgba(99,102,241,0) }
-    50% { box-shadow: 0 0 48px rgba(99,102,241,0.15) }
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    }
+    50% {
+      box-shadow: 0 0 48px rgba(99, 102, 241, 0.15);
+    }
   }
 
-  .animate-fade-in { animation: fade-in 800ms ease both }
-  .animate-slide-up { animation: slide-up 800ms cubic-bezier(.22,1,.36,1) both }
+  .animate-fade-in {
+    animation: fade-in 800ms ease both;
+  }
+  .animate-slide-up {
+    animation: slide-up 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 
-  .animation-delay-100 { animation-delay: 100ms }
-  .animation-delay-200 { animation-delay: 200ms }
-  .animation-delay-300 { animation-delay: 300ms }
-  .animation-delay-400 { animation-delay: 400ms }
-  .animation-delay-500 { animation-delay: 500ms }
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
 
-  .hover-glow:hover { animation: glow 1800ms ease-in-out 1 }
+  .hover-glow:hover {
+    animation: glow 1800ms ease-in-out 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -39,6 +72,29 @@
   }
 }
 
-body, html {
-  scroll-behavior: smooth
+body,
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 52% 10%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+.bg-animated-gradient {
+  background: radial-gradient(
+    90% 50% at 50% 0%,
+    rgba(99, 102, 241, 0.25),
+    rgba(24, 24, 27, 0) 70%
+  );
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease-in-out infinite;
 }
