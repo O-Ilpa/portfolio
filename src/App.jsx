@@ -363,7 +363,7 @@ function Projects() {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_100%,rgba(99,102,241,0.20),rgba(24,24,27,0)_70%)]" />
       <div className="flex items-end justify-between">
         <Reveal>
-          <h2 className="text-2xl sm:text-3xl font-semibold">Selected Work</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold">Projects </h2>
         </Reveal>
         <Reveal>
           <a href="#contact" className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">Work with me →</a>
