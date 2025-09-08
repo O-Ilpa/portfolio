@@ -556,7 +556,7 @@ function Skills() {
 
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(99,102,241,0.2),rgba(24,24,27,0)_70%)]" />
       <Reveal>
-        <h2 className="text-2xl sm:text-3xl font-semibold">Skills</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold">Technologies</h2>
       </Reveal>
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {groups.map((group) => (
