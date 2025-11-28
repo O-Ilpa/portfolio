@@ -65,7 +65,7 @@ The email service is configured with:
 - **Service**: Gmail SMTP
 - **From**: omarilpa09@gmail.com
 - **To**: omarilpa.eg@gmail.com
-- **App Password**: fdecormslqjlysws
+
 
 ## Deployment
 
