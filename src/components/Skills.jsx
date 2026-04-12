@@ -1,5 +1,7 @@
-import Reveal from "./ui/Reveal";
-import {
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "../gsap.js";
+import Reveal from "./ui/Reveal";import {
   HiDesktopComputer,
   HiCode,
   HiDatabase,
@@ -87,9 +89,31 @@ const groups = [
 ];
 
 export default function Skills() {
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    // Reveal skill groups individually as they enter the viewport
+    const items = gsap.utils.toArray(".skill-card-anim");
+    items.forEach((item) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+        scale: 0.9,
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        ease: "back.out(1.2)",
+      });
+    });
+  }, { scope: sectionRef });
+
   return (
     <section
       id="skills"
+      ref={sectionRef}
       className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_40%_at_50%_0%,rgba(99,102,241,0.13),transparent_70%)]" />
@@ -114,33 +138,31 @@ export default function Skills() {
       {/* Grid */}
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {groups.map((group, gi) => (
-          <Reveal key={group.title} delay={gi * 80}>
-            <div className={`glass rounded-2xl p-6 card-hover h-full border ${group.border}`}>
-              {/* Card header */}
-              <div className={`mb-5 flex items-center gap-2.5 rounded-xl bg-gradient-to-br ${group.color} px-3 py-2`}>
-                <group.Icon className={`h-4 w-4 shrink-0 ${group.iconColor}`} />
-                <h3 className="text-sm font-semibold text-white leading-none">{group.title}</h3>
-              </div>
-
-              {/* Skills list */}
-              <ul className="grid grid-cols-2 gap-2">
-                {group.items.map((item) => (
-                  <li key={item.name}>
-                    <div className="skill-item flex items-center gap-2 rounded-lg px-2.5 py-2">
-                      {typeof item.icon === "string" ? (
-                        <i className={`${item.icon} text-lg shrink-0`} />
-                      ) : (
-                        <span className="shrink-0 flex items-center">{item.icon}</span>
-                      )}
-                      <span className="text-xs font-medium text-zinc-300 truncate">
-                        {item.name}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          <div key={group.title} className={`skill-card-anim glass rounded-2xl p-6 card-hover h-full border ${group.border}`}>
+            {/* Card header */}
+            <div className={`mb-5 flex items-center gap-2.5 rounded-xl bg-gradient-to-br ${group.color} px-3 py-2`}>
+              <group.Icon className={`h-4 w-4 shrink-0 ${group.iconColor}`} />
+              <h3 className="text-sm font-semibold text-white leading-none">{group.title}</h3>
             </div>
-          </Reveal>
+
+            {/* Skills list */}
+            <ul className="grid grid-cols-2 gap-2">
+              {group.items.map((item) => (
+                <li key={item.name}>
+                  <div className="skill-item flex items-center gap-2 rounded-lg px-2.5 py-2">
+                    {typeof item.icon === "string" ? (
+                      <i className={`${item.icon} text-lg shrink-0`} />
+                    ) : (
+                      <span className="shrink-0 flex items-center">{item.icon}</span>
+                    )}
+                    <span className="text-xs font-medium text-zinc-300 truncate">
+                      {item.name}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
     </section>

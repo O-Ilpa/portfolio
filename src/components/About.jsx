@@ -1,5 +1,7 @@
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "../gsap.js";
 import Reveal from "./ui/Reveal";
-
 const experiences = [
   {
     period: "Dec 2025 — Present",
@@ -60,45 +62,70 @@ const experiences = [
 ];
 
 export default function About() {
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    // Reveal experience cards individually as they enter the viewport
+    const items = gsap.utils.toArray(".exp-card-anim");
+    items.forEach((item) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    });
+  }, { scope: containerRef });
+
   return (
     <section
       id="about"
+      ref={containerRef}
       className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
       {/* background glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(99,102,241,0.12),transparent_70%)]" />
 
-      {/* Section heading */}
-      <Reveal>
-        <div className="flex items-center gap-4 mb-3">
-          <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
-            02. Experience
-          </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+        
+        {/* Left Column - Pinned */}
+        <div className="lg:col-span-5 lg:sticky lg:top-32">
+          <Reveal>
+            <div className="flex items-center gap-4 mb-3">
+              <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+                02. Experience
+              </span>
+              <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
+            </div>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
+              About <span className="text-gradient">Me</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <p className="mt-4 text-zinc-400 text-lg leading-relaxed">
+              I'm{" "}
+              <span className="text-white font-semibold">Omar Ilpa</span>, a passionate
+              full-stack developer who transforms ideas into polished, scalable digital products.
+              I care about clean architecture, smooth UX, and writing code that lasts.
+            </p>
+          </Reveal>
         </div>
-        <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
-          About <span className="text-gradient">Me</span>
-        </h2>
-      </Reveal>
 
-      <Reveal delay={100}>
-        <p className="mt-4 max-w-2xl text-zinc-400 text-lg leading-relaxed">
-          I'm{" "}
-          <span className="text-white font-semibold">Omar Ilpa</span>, a passionate
-          full-stack developer who transforms ideas into polished, scalable digital products.
-          I care about clean architecture, smooth UX, and writing code that lasts.
-        </p>
-      </Reveal>
+        {/* Right Column - Timeline */}
+        <div className="lg:col-span-7 relative">
+          {/* Vertical line */}
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent lg:hidden" />
+          <div className="hidden lg:block absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent" />
 
-      {/* Timeline */}
-      <div className="mt-16 relative">
-        {/* Vertical line */}
-        <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent" />
-
-        <ol className="space-y-10">
-          {experiences.map((exp, i) => (
-            <Reveal key={i} delay={i * 80}>
-              <li className="relative pl-12 sm:pl-16 group">
+          <ol className="space-y-10">
+            {experiences.map((exp, i) => (
+              <li key={i} className="exp-card-anim relative pl-12 sm:pl-16 group">
                 {/* Dot */}
                 <div
                   className={`absolute left-[13.5px] top-[24px] h-3 w-3 rounded-full border-2 transition-all duration-300 z-10 ${
@@ -154,9 +181,9 @@ export default function About() {
                   )}
                 </div>
               </li>
-            </Reveal>
-          ))}
-        </ol>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

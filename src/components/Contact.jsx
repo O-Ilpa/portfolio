@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "../gsap.js";
 import Reveal from "./ui/Reveal";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiMail, HiPhone } from "react-icons/hi";
@@ -29,6 +31,40 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    // Reveal animation
+    gsap.from(".contact-reveal", {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+      },
+      clipPath: "inset(100% 0% 0% 0%)",
+      y: 100,
+      scale: 0.95,
+      opacity: 0,
+      duration: 1.2,
+      ease: "power4.out",
+    });
+
+    // Reveal cards individually as they enter the viewport
+    const cards = gsap.utils.toArray(".contact-info-card");
+    cards.forEach((card) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    });
+  }, { scope: containerRef });
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -69,7 +105,6 @@ export default function Contact() {
       id="contact"
       className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(99,102,241,0.12),transparent_70%)]" />
 
       {/* Heading */}
       <Reveal>
@@ -87,44 +122,47 @@ export default function Contact() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid lg:grid-cols-[1fr_1.6fr] gap-10">
+      <div ref={containerRef} className="mt-14 grid lg:grid-cols-[1fr_1.6fr] gap-10 contact-reveal">
         {/* Left: contact info */}
-        <Reveal direction="left">
-          <div className="space-y-4">
+        <div>
+          <div className="flex flex-col gap-6">
             {contactInfo.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                className="glass rounded-2xl p-5 flex items-center gap-4 card-hover group border border-white/5 block"
+                className="contact-info-card relative glass rounded-2xl p-5 flex items-center gap-4 card-hover group border border-white/10 w-full overflow-hidden"
               >
                 <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
                   <item.icon className="h-5 w-5 text-indigo-400" />
                 </div>
-                <div>
-                  <div className="text-xs text-zinc-500 font-medium uppercase tracking-wider">{item.label}</div>
-                  <div className="text-sm text-zinc-200 font-medium mt-0.5 group-hover:text-white transition-colors">{item.value}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] uppercase tracking-[0.15em] text-zinc-500 font-bold mb-0.5">{item.label}</p>
+                  <p className="text-sm text-zinc-100 font-semibold group-hover:text-white transition-colors truncate">
+                    {item.value}
+                  </p>
                 </div>
               </a>
             ))}
 
             {/* Availability card */}
-            <div className="glass rounded-2xl p-5 border border-emerald-500/15">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-lg shadow-emerald-400/30" />
-                <span className="text-sm font-semibold text-emerald-400">Available for Work</span>
+            <div className="contact-info-card relative glass rounded-2xl p-5 flex items-center gap-4 border border-emerald-500/20 w-full overflow-hidden">
+              <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse-glow shadow-[0_0_15px_rgba(52,211,153,0.3)]" />
               </div>
-              <p className="text-xs text-zinc-500 leading-relaxed">
-                I'm currently open to full-time remote positions and freelance projects. Let's talk!
-              </p>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-emerald-400 mb-0.5">Available for Work</p>
+                <p className="text-xs text-zinc-500 leading-snug">
+                  Seeking full-time remote roles or freelance.
+                </p>
+              </div>
             </div>
           </div>
-        </Reveal>
+        </div>
 
         {/* Right: form */}
-        <Reveal direction="right">
-          <div className="glass rounded-2xl p-8 border border-white/5">
+        <div className="glass rounded-2xl p-8 border border-white/5">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-5">
                 <div>
@@ -231,7 +269,6 @@ export default function Contact() {
               )}
             </form>
           </div>
-        </Reveal>
       </div>
     </section>
   );

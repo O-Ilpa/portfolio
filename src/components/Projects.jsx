@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "../gsap.js";
 import Reveal from "./ui/Reveal";
 import { FaGithub } from "react-icons/fa";
 import { HiExternalLink } from "react-icons/hi";
@@ -97,128 +99,160 @@ const projects = [
 export default function Projects() {
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? projects : projects.filter((p) => p.featured);
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    // Reveal cards individually as they enter the viewport
+    const cards = gsap.utils.toArray(".project-card-anim");
+    cards.forEach((card) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    });
+  }, { scope: sectionRef, dependencies: [visible.length] });
 
   return (
     <section
       id="projects"
+      ref={sectionRef}
       className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(99,102,241,0.1),transparent_70%)]" />
 
-      {/* Heading */}
-      <Reveal>
-        <div className="flex items-center gap-4 mb-3">
-          <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
-            04. Work
-          </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+        
+        {/* Left Column - Pinned Heading */}
+        <div className="lg:col-span-5 lg:sticky lg:top-32">
+          <Reveal>
+            <div className="flex items-center gap-4 mb-3">
+              <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+                04. Work
+              </span>
+              <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
+            </div>
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
+              Featured <span className="text-gradient">Projects</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <p className="mt-4 text-zinc-400 text-lg leading-relaxed max-w-sm">
+              Selection of my recent work including full-stack applications, 
+              interactive UI experiments, and back-end systems.
+            </p>
+          </Reveal>
+
+          <div className="mt-8">
+            <a
+              href="#contact"
+              className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium flex items-center gap-1.5 group"
+            >
+              Interested in working together?
+              <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
         </div>
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <a
-            href="#contact"
-            className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium flex items-center gap-1.5 group"
-          >
-            Work with me
-            <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </a>
-        </div>
-      </Reveal>
 
-      {/* Projects grid */}
-      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {visible.map((project, i) => (
-          <Reveal key={project.id} delay={i * 60}>
-            <article className="glass rounded-2xl overflow-hidden card-hover border border-white/5 h-full flex flex-col group">
-              {/* Image area */}
-              <div className={`relative h-44 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
-                {/* Code link on hover */}
-                <a
-                  href={project.code}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute top-3 right-3 glass-sm rounded-lg p-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white/20"
-                  aria-label="View code"
-                >
-                  <FaGithub className="h-4 w-4" />
-                </a>
-              </div>
-
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="font-display text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm text-zinc-400 leading-relaxed flex-1">
-                  {project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="tag-pill">{tag}</span>
-                  ))}
-                </div>
-
-                {/* Footer */}
-                <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
+        {/* Right Column - Project List */}
+        <div className="lg:col-span-7 space-y-8">
+          {visible.map((project, i) => (
+            <article 
+              key={project.id} 
+              className="project-card-anim glass rounded-2xl overflow-hidden card-hover border border-white/5 group"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-5 h-full">
+                {/* Image section (2/5) */}
+                <div className={`md:col-span-2 relative min-h-[200px] bg-gradient-to-br ${project.gradient} overflow-hidden`}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  
+                  {/* GitHub Link overlay on image for mobile */}
                   <a
                     href={project.code}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition-colors group/link"
+                    className="md:hidden absolute top-3 right-3 glass-sm rounded-lg p-2 text-white hover:bg-white/20"
                   >
-                    <FaGithub className="h-3.5 w-3.5" />
-                    View Code
-                    <HiExternalLink className="h-3 w-3 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all" />
+                    <FaGithub className="h-4 w-4" />
                   </a>
+                </div>
+
+                {/* Content section (3/5) */}
+                <div className="md:col-span-3 p-6 flex flex-col justify-between">
+                  <div>
+                    <h3 className="font-display text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-zinc-400 leading-relaxed line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {project.tags.map((tag) => (
+                        <span key={tag} className="tag-pill">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
+                    <a
+                      href={project.code}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex underline items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition-colors group/link"
+                    >
+                      <FaGithub className="h-4 w-4" />
+                      View Codebase
+                      <HiExternalLink className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all font-bold" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </article>
-          </Reveal>
-        ))}
-      </div>
+          ))}
 
-      {/* Show all / Show less toggle */}
-      <Reveal>
-        <div className="mt-10 text-center">
-          <button
-            onClick={() => setShowAll((v) => !v)}
-            className="btn-secondary inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-zinc-300"
-          >
-            {showAll ? (
-              <>
-                Show Less
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-                </svg>
-              </>
-            ) : (
-              <>
-                View All Projects ({projects.length})
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                </svg>
-              </>
-            )}
-          </button>
+          {/* Show all / Show less toggle */}
+          <div className="pt-4  mt-4 flex justify-center">
+            <button
+              onClick={() => setShowAll((v) => !v)}
+              className="btn-secondary inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-zinc-300 transition-all hover:bg-white/5 border border-white/5"
+            >
+              {showAll ? (
+                <>
+                  Show Less
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                  </svg>
+                </>
+              ) : (
+                <>
+                  View All Projects ({projects.length})
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </>
+              )}
+            </button>
+          </div>
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }
