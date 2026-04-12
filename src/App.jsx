@@ -347,7 +347,7 @@ function Hero() {
             View Work
           </a>
           <a
-            href="/Omar_Ilpa_Resume.pdf"
+            href="/Omar_Ilpa_Resume_V3.pdf"
             download
             className="rounded-md bg-zinc-800 px-4 py-2.5 font-medium text-white hover:bg-zinc-700 transition-colors"
           >
