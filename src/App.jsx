@@ -9,13 +9,19 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <div>
+    <div className="relative min-h-screen" style={{ backgroundColor: "#050508" }}>
       <Nav />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <main>
+        <Hero />
+        <div className="section-divider mx-auto max-w-6xl" />
+        <About />
+        <div className="section-divider mx-auto max-w-6xl" />
+        <Skills />
+        <div className="section-divider mx-auto max-w-6xl" />
+        <Projects />
+        <div className="section-divider mx-auto max-w-6xl" />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

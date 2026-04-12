@@ -1,220 +1,191 @@
+import { useState } from "react";
 import Reveal from "./ui/Reveal";
+import { FaGithub } from "react-icons/fa";
+import { HiExternalLink } from "react-icons/hi";
 
 const projects = [
   {
     id: 1,
     title: "Property Management System",
     description:
-      "Full-stack property management web application with admin dashboard, CRUD functionality, and secure JWT authentication.",
+      "Full-stack property management app with admin dashboard, CRUD functionality, dynamic show pages, and secure JWT authentication.",
     image: "/projects/1.webp",
-    tags: [
-      "React",
-      "Tailwind CSS",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "JWT",
-    ],
-    features: [
-      "Admin Dashboard",
-      "CRUD Operations",
-      "Search Functionality",
-      "Responsive Design",
-      "JWT Authentication",
-    ],
+    tags: ["React", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "JWT"],
+    featured: true,
     code: "https://github.com/O-Ilpa/client",
+    gradient: "from-indigo-500/30 to-blue-500/30",
   },
   {
     id: 2,
     title: "Notes App",
     description:
-      "Custom signup/login flow with email verification, JWT-protected sessions, and full CRUD functionality for personal notes.",
+      "Custom signup/login flow with email verification, JWT-protected sessions, and full CRUD for personal notes.",
     image: "/projects/2.webp",
-    tags: [
-      "React",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Tailwind CSS",
-      "JWT",
-    ],
-    features: [
-      "Email Verification",
-      "JWT Authentication",
-      "CRUD Operations",
-      "Search Capability",
-      "Mobile-First UI",
-    ],
+    tags: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "JWT"],
+    featured: true,
     code: "https://github.com/O-Ilpa/notes-app-back-end",
+    gradient: "from-violet-500/30 to-purple-500/30",
   },
   {
     id: 3,
-    title: "Library App",
+    title: "Live Chat App",
     description:
-      "Author and book management system with linking functionality, search, and filtering for better data navigation.",
-    image: "/projects/3.webp",
-    tags: ["Node.js", "Express.js", "EJS", "MongoDB"],
-    features: [
-      "Author Management",
-      "Book Linking",
-      "Search & Filter",
-      "Dynamic Pages",
-      "Data Navigation",
-    ],
-    code: "https://github.com/O-Ilpa/SSR-Library",
+      "Real-time messaging application using WebSockets with room-based chat and instant system notifications.",
+    image: "/projects/5.webp",
+    tags: ["React", "Node.js", "Express.js", "WebSockets"],
+    featured: true,
+    code: "https://github.com/O-Ilpa/live-chat",
+    gradient: "from-emerald-500/30 to-teal-500/30",
   },
   {
     id: 4,
-    title: "CRUDS Application",
+    title: "Library App",
     description:
-      "Vanilla JavaScript application for managing data in local storage with clean code and simplicity focus.",
-    image: "/projects/4.webp",
-    tags: ["JavaScript", "HTML", "CSS", "Local Storage"],
-    features: [
-      "CRUD Operations",
-      "Local Storage",
-      "Clean Code",
-      "Simple Design",
-      "Data Management",
-    ],
-    code: "https://github.com/O-Ilpa/cruds",
+      "Author and book management system with SSR, linking functionality, search, and filtering for data navigation.",
+    image: "/projects/3.webp",
+    tags: ["Node.js", "Express.js", "EJS", "MongoDB"],
+    featured: false,
+    code: "https://github.com/O-Ilpa/SSR-Library",
+    gradient: "from-blue-500/20 to-cyan-500/20",
   },
   {
     id: 5,
-    title: "Live Chat App",
+    title: "CRUDS Application",
     description:
-      "Real-time messaging application using WebSockets with room-based chat and instant notifications.",
-    image: "/projects/5.webp",
-    tags: ["React", "Node.js", "Express.js", "WebSockets"],
-    features: [
-      "Real-time Messaging",
-      "Room-based Chat",
-      "System Notifications",
-      "WebSocket Integration",
-      "Responsive UI",
-    ],
-    code: "https://github.com/O-Ilpa/live-chat",
+      "Vanilla JavaScript application for managing data in local storage with a clean code-first approach.",
+    image: "/projects/4.webp",
+    tags: ["JavaScript", "HTML", "CSS", "Local Storage"],
+    featured: false,
+    code: "https://github.com/O-Ilpa/cruds",
+    gradient: "from-amber-500/20 to-orange-500/20",
   },
   {
     id: 6,
-    title: "Elzero Landing Page",
+    title: "Keep It Green Initiative",
     description:
-      "Responsive HTML and CSS template demonstrating semantic HTML, Flexbox, and media queries for cross-device compatibility.",
-    image: "/projects/6.webp",
-    tags: ["HTML", "CSS", "Flexbox", "Responsive Design"],
-    features: [
-      "Semantic HTML",
-      "Flexbox Layout",
-      "Media Queries",
-      "Cross-device Compatibility",
-      "Clean Design",
-    ],
-    code: "https://github.com/O-Ilpa/omar.com",
+      "Environmental initiative website with Swiper.js responsive sliders, clean UI, and accessibility focus.",
+    image: "/projects/7.webp",
+    tags: ["HTML", "CSS", "JavaScript", "Swiper.js"],
+    featured: false,
+    code: "https://github.com/O-Ilpa/kig",
+    gradient: "from-green-500/20 to-lime-500/20",
   },
   {
     id: 7,
-    title: "Keep It Green Initiative",
-    description:
-      "Website for environmental initiative using Swiper.js for responsive sliders with focus on clean UI and accessibility.",
-    image: "/projects/7.webp",
-    tags: ["HTML", "CSS", "JavaScript", "Swiper.js"],
-    features: [
-      "Responsive Sliders",
-      "Clean UI",
-      "Accessibility",
-      "Modern Design",
-      "Environmental Theme",
-    ],
-    code: "https://github.com/O-Ilpa/kig",
-  },
-  {
-    id: 8,
     title: "Interactive Bookstore",
     description:
       "Imaginary bookstore with responsive design, dynamic content, and user-friendly navigation using JavaScript.",
     image: "/projects/8.webp",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
-    features: [
-      "Dynamic Content",
-      "User-friendly Navigation",
-      "Responsive Design",
-      "Interactive Elements",
-      "Bookstore Theme",
-    ],
+    featured: false,
     code: "https://github.com/O-Ilpa/B-Commerce",
+    gradient: "from-rose-500/20 to-pink-500/20",
+  },
+  {
+    id: 8,
+    title: "Elzero Landing Page",
+    description:
+      "Responsive HTML & CSS template demonstrating semantic markup, Flexbox, and media queries.",
+    image: "/projects/6.webp",
+    tags: ["HTML", "CSS", "Flexbox", "Responsive Design"],
+    featured: false,
+    code: "https://github.com/O-Ilpa/omar.com",
+    gradient: "from-sky-500/20 to-blue-500/20",
   },
 ];
 
 export default function Projects() {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? projects : projects.filter((p) => p.featured);
+
   return (
     <section
       id="projects"
-      className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24"
+      className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(99,102,241,0.2),rgba(24,24,27,0)_70%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(99,102,241,0.1),transparent_70%)]" />
 
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_100%,rgba(99,102,241,0.20),rgba(24,24,27,0)_70%)]" />
-      <div className="flex items-end justify-between">
-        <Reveal>
-          <h2 className="text-2xl sm:text-3xl font-semibold">Projects </h2>
-        </Reveal>
-        <Reveal>
+      {/* Heading */}
+      <Reveal>
+        <div className="flex items-center gap-4 mb-3">
+          <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+            04. Work
+          </span>
+          <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
+        </div>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white">
+            Featured <span className="text-gradient">Projects</span>
+          </h2>
           <a
             href="#contact"
-            className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+            className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium flex items-center gap-1.5 group"
           >
-            Work with me →
+            Work with me
+            <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
           </a>
-        </Reveal>
-      </div>
+        </div>
+      </Reveal>
 
-      <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project, index) => (
-          <Reveal key={project.id}>
-            <article className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 transition-transform duration-300 hover:-translate-y-1 hover-glow">
-              <div className="h-40 bg-gradient-to-br from-indigo-500/40 to-fuchsia-500/40 relative overflow-hidden">
+      {/* Projects grid */}
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {visible.map((project, i) => (
+          <Reveal key={project.id} delay={i * 60}>
+            <article className="glass rounded-2xl overflow-hidden card-hover border border-white/5 h-full flex flex-col group">
+              {/* Image area */}
+              <div className={`relative h-44 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   onError={(e) => {
                     e.target.style.display = "none";
-                    e.target.nextSibling.style.display = "flex";
                   }}
                 />
-                <div
-                  className="absolute inset-0 bg-gradient-to-br from-indigo-500/40 to-fuchsia-500/40 flex items-center justify-center"
-                  style={{ display: "none" }}
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                {/* Code link on hover */}
+                <a
+                  href={project.code}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-3 right-3 glass-sm rounded-lg p-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white/20"
+                  aria-label="View code"
                 >
-                  <span className="text-white font-semibold text-lg">
-                    {project.title}
-                  </span>
-                </div>
+                  <FaGithub className="h-4 w-4" />
+                </a>
               </div>
-              <div className="p-5">
-                <h3 className="text-lg font-semibold group-hover:text-white transition-colors">
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="font-display text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
                   {project.title}
                 </h3>
-                <p className="mt-2 text-sm text-zinc-300 line-clamp-3">
+                <p className="mt-2 text-sm text-zinc-400 leading-relaxed flex-1">
                   {project.description}
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2 text-xs text-zinc-400">
+
+                {/* Tags */}
+                <div className="mt-4 flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded border border-zinc-700 px-2 py-1"
-                    >
-                      {tag}
-                    </span>
+                    <span key={tag} className="tag-pill">{tag}</span>
                   ))}
                 </div>
-                <div className="mt-5 flex gap-3">
-                  {/* <a className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors" href="#">Live</a> */}
+
+                {/* Footer */}
+                <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
                   <a
-                    className="text-sm text-zinc-400 underline hover:text-white transition-colors"
                     href={project.code}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition-colors group/link"
                   >
-                    Code
+                    <FaGithub className="h-3.5 w-3.5" />
+                    View Code
+                    <HiExternalLink className="h-3 w-3 opacity-0 -translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all" />
                   </a>
                 </div>
               </div>
@@ -222,6 +193,32 @@ export default function Projects() {
           </Reveal>
         ))}
       </div>
+
+      {/* Show all / Show less toggle */}
+      <Reveal>
+        <div className="mt-10 text-center">
+          <button
+            onClick={() => setShowAll((v) => !v)}
+            className="btn-secondary inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-zinc-300"
+          >
+            {showAll ? (
+              <>
+                Show Less
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                </svg>
+              </>
+            ) : (
+              <>
+                View All Projects ({projects.length})
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
+      </Reveal>
     </section>
   );
 }

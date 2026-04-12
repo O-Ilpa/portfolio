@@ -1,195 +1,162 @@
 import Reveal from "./ui/Reveal";
 
+const experiences = [
+  {
+    period: "Dec 2025 — Present",
+    role: "Software Developer",
+    company: "GoMAXPAIN",
+    location: "Remote, United States",
+    active: true,
+    bullets: [
+      "Engineered scalable web scraping systems collecting ~500,000 verified professional records across 7 U.S. states to support outbound B2B outreach.",
+      "Developed resilient Playwright-based automation capable of multi-day execution, handling dynamic pages, retries, and failure recovery.",
+      "Standardized, cleaned, and deduplicated large datasets to ensure accuracy, consistency, and production usability.",
+      "Translated Figma designs into production-ready web pages, ensuring visual accuracy and performance.",
+      "Refactored and updated existing pages to improve responsiveness and maintain design consistency across breakpoints.",
+    ],
+    stack: ["Playwright", "Python", "Pandas", "React", "TailwindCSS", "TypeScript"],
+  },
+  {
+    period: "Sep 2025 — Mar 2026",
+    role: "Part-Time Software Engineer",
+    company: "Spiritual Data",
+    location: "Remote, USA",
+    active: false,
+    bullets: [
+      "Developed real-world web services and intuitive dashboards for centralized data management.",
+      "Improved developer workflows and delivered features that enhanced team velocity and code maintainability.",
+    ],
+    stack: [],
+  },
+  {
+    period: "Apr 2025 — May 2025",
+    role: "Full Stack Engineer",
+    company: "Tamayoz Real Estate",
+    location: "Remote, Egypt",
+    active: false,
+    bullets: [
+      "Developed a full‑stack property management system including dynamic property show pages and admin CRUD.",
+      "Added 4+ system modules enhancing property management workflows.",
+      "Improved dashboard usability, reducing task completion time by ~35%.",
+      "Built secure REST APIs with Express.js & MongoDB and optimized queries for ~20% faster responses.",
+      "Developed a fully responsive interface using React and Tailwind CSS.",
+    ],
+    stack: ["MongoDB", "Express.js", "React.js", "Tailwind CSS", "JWT"],
+  },
+  {
+    period: "2021 — 2025",
+    role: "Freelance & Personal Projects",
+    company: "Independent",
+    location: "",
+    active: false,
+    bullets: [
+      "Built and deployed a full-stack Notes Application featuring custom JWT authentication, email verification, and secure CRUD operations.",
+      "Developed a real-time Live Chat App utilizing WebSockets for instant room-based messaging and notifications.",
+      "Engineered a Library Management System with dynamic server-side rendering, complex data relationships, and advanced search filtering.",
+      "Designed and launched responsive landing pages including the Keep It Green Initiative and an Interactive Bookstore using Swiper.js.",
+    ],
+    stack: [],
+  },
+];
+
 export default function About() {
   return (
     <section
       id="about"
-      className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24"
+      className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32"
     >
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_100%,rgba(99,102,241,0.20),rgba(24,24,27,0)_70%)]" />
-      <div className="grid md:grid-cols-1 gap-10 items-start">
-        <div className="md:col-span-1">
-          <Reveal>
-            <h2 className="text-2xl sm:text-3xl font-semibold">About</h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="mt-4 text-zinc-300">
-              I'm Omar Ilpa, a full-stack developer who loves turning ideas into
-              clean, working apps. I enjoy React, Tailwind, Node.js, and
-              databases, but more than tools, I care about building things that
-              feel fast, modern, and useful.
-            </p>
-          </Reveal>
+      {/* background glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(99,102,241,0.12),transparent_70%)]" />
 
-          {/* Timeline */}
-          <div className="mt-10 relative">
-            <div className="absolute left-3 top-0 bottom-0 w-px bg-zinc-800" />
-            <ol className="space-y-6">
-              <Reveal>
-                <li className="relative pl-10">
-                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20"></span>
-                  <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    Dec 2025 — Present
-                  </div>
-                  <h3 className="mt-1 font-medium">
-                    Software Developer · GoMAXPAIN{" "}
-                    <i className="font-light">Remote, United States</i>
-                  </h3>
-                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
-                    <li>
-                      Engineered scalable web scraping systems collecting
-                      ~500,000 verified professional records across 7 U.S.
-                      states to support outbound B2B outreach.
-                    </li>
-                    <li>
-                      Developed resilient Playwright-based automation capable of
-                      multi-day execution, handling dynamic pages, retries, and
-                      failure recovery.
-                    </li>
-                    <li>
-                      Standardized, cleaned, and deduplicated large datasets to
-                      ensure accuracy, consistency, and production usability.
-                    </li>
-                    <li>
-                      Reduced reliance on unreliable legacy datasets by
-                      delivering internally-owned, high-quality lead data.
-                    </li>
-                    <li>
-                      Collaborated with internal teams to validate scraped data
-                      and provided front-end QA feedback during testing cycles.
-                    </li>
-                    <li>
-                      Translated Figma designs into production-ready web pages,
-                      ensuring visual accuracy and performance.
-                    </li>
-                    <li>
-                      Refactored and updated existing pages to improve
-                      responsiveness and maintain design consistency across
-                      breakpoints.
-                    </li>
-                  </ul>
-                  <p className="pt-3 text-sm text-zinc-400">
-                    <span className="font-semibold">Tech Stack:</span> Playwright,
-                    Python, Pandas, Web scraping, Automation, React, TailwindCSS,
-                    tsx
-                  </p>
-                </li>
-              </Reveal>
-
-              <Reveal>
-                <li className="relative pl-10">
-                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 ring-4 ring-zinc-600/20"></span>
-                  <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    Sep 2025 — March 2026
-                  </div>
-                  <h3 className="mt-1 font-medium">
-                    Part-Time Software Engineer · Spiritual Data{" "}
-                    <i className="font-light">Remote (USA)</i>
-                  </h3>
-                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
-                    <li>
-                      Developing real-world web services and intuitive dashboards
-                      for centralized data management.
-                    </li>
-                    <li>
-                      Improving developer workflows and delivering features that
-                      enhance team velocity and code maintainability.
-                    </li>
-                  </ul>
-                </li>
-              </Reveal>
-
-              <Reveal>
-                <li className="relative pl-10">
-                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 ring-4 ring-zinc-600/20"></span>
-                  <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    Apr 2025 – May 2025
-                  </div>
-                  <h3 className="mt-1 font-medium">
-                    Full Stack Engineer · Tamayoz Real Estate{" "}
-                    <i className="font-light">Remote, Egypt</i>
-                  </h3>
-                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
-                    <li>
-                      Developed a full‑stack property management system including
-                      dynamic property show pages and admin CRUD.
-                    </li>
-                    <li>
-                      Added 4+ system modules enhancing property management
-                      workflows.
-                    </li>
-                    <li>
-                      Improved dashboard usability, reducing task completion time
-                      by ~35%.
-                    </li>
-                    <li>
-                      Built secure REST APIs with Express.js & MongoDB and
-                      optimized queries for ~20% faster responses.
-                    </li>
-                    <li>
-                      Developed a fully responsive interface using React and
-                      Tailwind CSS.
-                    </li>
-                  </ul>
-                  <p className="pt-3 text-sm text-zinc-400">
-                    <span className="font-semibold">Tech Stack:</span> MongoDB,
-                    Express.js, React.js, Tailwind CSS, JWT
-                  </p>
-                </li>
-              </Reveal>
-
-              <Reveal>
-                <li className="relative pl-10">
-                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 ring-4 ring-zinc-600/20"></span>
-                  <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    2021—2025
-                  </div>
-                  <h3 className="mt-1 font-medium">
-                    Freelance & Personal Projects
-                  </h3>
-                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
-                    <li>
-                      Built and deployed a full-stack{" "}
-                      <span className="text-white font-medium">
-                        Notes Application
-                      </span>{" "}
-                      featuring custom JWT authentication, email verification, and
-                      secure CRUD operations.
-                    </li>
-                    <li>
-                      Developed a real-time{" "}
-                      <span className="text-white font-medium">
-                        Live Chat App
-                      </span>{" "}
-                      utilizing WebSockets for instant room-based messaging and
-                      notifications.
-                    </li>
-                    <li>
-                      Engineered a{" "}
-                      <span className="text-white font-medium">
-                        Library Management System
-                      </span>{" "}
-                      with dynamic server-side rendering, complex data
-                      relationships, and advanced search filtering.
-                    </li>
-                    <li>
-                      Designed and launched several high-performance responsive
-                      landing pages, including the{" "}
-                      <span className="text-white font-medium">
-                        Keep It Green Initiative
-                      </span>{" "}
-                      and an{" "}
-                      <span className="text-white font-medium">
-                        Interactive Bookstore
-                      </span>
-                      , using Swiper.js for modern UI interactions.
-                    </li>
-                  </ul>
-                </li>
-              </Reveal>
-            </ol>
-          </div>
+      {/* Section heading */}
+      <Reveal>
+        <div className="flex items-center gap-4 mb-3">
+          <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+            02. Experience
+          </span>
+          <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/30 to-transparent" />
         </div>
+        <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-4">
+          About <span className="text-gradient">Me</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={100}>
+        <p className="mt-4 max-w-2xl text-zinc-400 text-lg leading-relaxed">
+          I'm{" "}
+          <span className="text-white font-semibold">Omar Ilpa</span>, a passionate
+          full-stack developer who transforms ideas into polished, scalable digital products.
+          I care about clean architecture, smooth UX, and writing code that lasts.
+        </p>
+      </Reveal>
+
+      {/* Timeline */}
+      <div className="mt-16 relative">
+        {/* Vertical line */}
+        <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent" />
+
+        <ol className="space-y-10">
+          {experiences.map((exp, i) => (
+            <Reveal key={i} delay={i * 80}>
+              <li className="relative pl-12 sm:pl-16 group">
+                {/* Dot */}
+                <div
+                  className={`absolute left-[13.5px] top-[24px] h-3 w-3 rounded-full border-2 transition-all duration-300 z-10 ${
+                    exp.active
+                      ? "bg-indigo-500 border-indigo-400 shadow-lg shadow-indigo-500/50 timeline-dot-active"
+                      : "bg-zinc-900 border-zinc-700 group-hover:border-indigo-500/60"
+                  }`}
+                />
+
+                {/* Card */}
+                <div className="glass rounded-2xl p-6 card-hover border border-white/5">
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+                    <div>
+                      <div className="text-xs uppercase tracking-widest text-indigo-400 font-semibold mb-1">
+                        {exp.period}
+                      </div>
+                      <h3 className="text-lg font-bold text-white">
+                        {exp.role}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-1 text-sm text-zinc-400">
+                        <span className="font-medium text-zinc-300">{exp.company}</span>
+                        {exp.location && (
+                          <>
+                            <span className="text-zinc-600">·</span>
+                            <span>{exp.location}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    {exp.active && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Current
+                      </span>
+                    )}
+                  </div>
+
+                  <ul className="space-y-2 mb-4">
+                    {exp.bullets.map((b, j) => (
+                      <li key={j} className="flex gap-3 text-sm text-zinc-400 leading-relaxed">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500/60" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {exp.stack.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
+                      {exp.stack.map((s) => (
+                        <span key={s} className="tag-pill">{s}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

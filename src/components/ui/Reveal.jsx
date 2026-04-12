@@ -7,32 +7,38 @@ function useInView(options) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.15, rootMargin: "0px", ...(options || {}) },
+      ([entry]) => { if (entry.isIntersecting) setIsInView(true); },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px", ...(options || {}) }
     );
-
     observer.observe(element);
     return () => observer.disconnect();
-  }, [options]);
+  }, []);
 
   return [ref, isInView];
 }
 
-export default function Reveal({ className = "", delay = 0, children }) {
+export default function Reveal({ className = "", delay = 0, direction = "up", children }) {
   const [ref, isInView] = useInView();
-  const delayClass = delay ? ` animation-delay-${delay}` : "";
+
+  const dirMap = {
+    up:    "opacity-0 translate-y-6",
+    down:  "opacity-0 -translate-y-6",
+    left:  "opacity-0 translate-x-6",
+    right: "opacity-0 -translate-x-6",
+  };
+
+  const visibleClass = isInView
+    ? `opacity-100 translate-x-0 translate-y-0 transition-all duration-700 ease-out`
+    : dirMap[direction] ?? "opacity-0 translate-y-6";
+
+  const delayStyle = delay ? { transitionDelay: `${delay}ms` } : {};
+
   return (
     <div
       ref={ref}
-      className={`${className} ${
-        isInView ? `animate-slide-up${delayClass}` : "opacity-0 translate-y-4"
-      }`}
-      style={{ willChange: "transform, opacity" }}
+      className={`${className} ${visibleClass}`}
+      style={{ willChange: "transform, opacity", ...delayStyle }}
     >
       {children}
     </div>

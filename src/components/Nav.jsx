@@ -1,140 +1,126 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const navLinks = [
+  { href: "#about",    label: "About"    },
+  { href: "#skills",   label: "Skills"   },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact",  label: "Contact"  },
+];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60 animate-fade-in">
-      <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-        <a
-          href="#home"
-          className="text-lg font-semibold tracking-tight hover:opacity-90 transition-opacity"
-        >
-          Omar Ilpa
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 text-sm text-zinc-300 items-center">
-          <a href="#about" className="hover:text-white transition-colors">
-            About
-          </a>
-          <a href="#skills" className="hover:text-white transition-colors">
-            Skills
-          </a>
-          <a href="#projects" className="hover:text-white transition-colors">
-            Projects
-          </a>
-          <a href="#contact" className="hover:text-white transition-colors">
-            Contact
-          </a>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 animate-fade-in ${
+          scrolled
+            ? "glass-strong shadow-lg shadow-black/30"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
           <a
-            href="mailto:omarilpa.eg@gmail.com"
-            className="inline-flex items-center rounded-md bg-white/10 px-3 py-1.5 text-white hover:bg-white/20 transition-colors"
+            href="#home"
+            className="group flex items-center gap-2 font-display text-xl font-bold tracking-tight"
           >
-            Email
+            <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm font-bold shadow-lg shadow-indigo-500/30 transition-transform group-hover:scale-105">
+              O
+            </span>
+            <span className="text-white/95">Omar Ilpa</span>
           </a>
-        </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          aria-label="Open menu"
-          onClick={() => setOpen(true)}
-          className="md:hidden inline-flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900/70 p-2 text-zinc-200 hover:bg-zinc-900"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-6 w-6"
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="nav-link px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-white/5"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              className="btn-primary ml-3 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white relative z-0"
+            >
+              <span className="relative z-10">Hire Me</span>
+            </a>
+          </nav>
+
+          {/* Mobile hamburger */}
+          <button
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+            className="md:hidden glass-sm rounded-lg p-2.5 text-zinc-200 transition-colors hover:bg-white/10"
           >
-            <path
-              fillRule="evenodd"
-              d="M3.75 5.25a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75zm0 6a.75.75 0 0 1 .75-.75h15a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1-.75-.75z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+              <path fillRule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75H12a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clipRule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+      </header>
 
-      {/* Overlay */}
+      {/* Mobile drawer overlay */}
       <div
         onClick={() => setOpen(false)}
-        className={`md:hidden fixed inset-0 z-40 bg-black transition-opacity duration-300 backdrop-blur-md ${
-          open
-            ? "opacity-60 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+        className={`md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-md transition-opacity duration-300 ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
 
       {/* Mobile drawer */}
       <aside
-        className={`md:hidden fixed inset-y-0 right-0 z-50 w-[100%] max-w-full border-l border-zinc-800 bg-zinc-950 transition-transform duration-300 ease-out ${
+        className={`md:hidden fixed inset-y-0 right-0 z-50 w-80 glass-strong transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!open}
       >
-        {/* Header */}
-        <div className="sticky top-0 flex items-center justify-between px-5 py-4 border-b border-zinc-800 bg-zinc-950/90">
-          <span className="text-base font-semibold">Menu</span>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <span className="font-display font-bold text-base text-white">Menu</span>
           <button
             aria-label="Close menu"
             onClick={() => setOpen(false)}
-            className="inline-flex items-center justify-center rounded-md border border-zinc-800 bg-zinc-900 p-2 text-zinc-200 hover:bg-zinc-800"
+            className="glass-sm rounded-lg p-2 text-zinc-300 hover:text-white transition-colors"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z"
-                clipRule="evenodd"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+              <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd"/>
             </svg>
           </button>
         </div>
 
-        {/* Links */}
-        <nav className="px-5 py-6 space-y-3 bg-[#060606]">
-          <a
-            onClick={() => setOpen(false)}
-            href="#about"
-            className="block rounded-lg px-4 py-3 text-lg font-medium text-zinc-100 bg-white/5 hover:bg-white/10"
-          >
-            About
-          </a>
-          <a
-            onClick={() => setOpen(false)}
-            href="#skills"
-            className="block rounded-lg px-4 py-3 text-lg font-medium text-zinc-100 bg-white/5 hover:bg-white/10"
-          >
-            Skills
-          </a>
-          <a
-            onClick={() => setOpen(false)}
-            href="#projects"
-            className="block rounded-lg px-4 py-3 text-lg font-medium text-zinc-100 bg-white/5 hover:bg-white/10"
-          >
-            Projects
-          </a>
-          <a
-            onClick={() => setOpen(false)}
-            href="#contact"
-            className="block rounded-lg px-4 py-3 text-lg font-medium text-zinc-100 bg-white/5 hover:bg-white/10"
-          >
-            Contact
-          </a>
-          <a
-            onClick={() => setOpen(false)}
-            href="mailto:omarilpa.eg@gmail.com"
-            className="mt-2 block rounded-lg px-4 py-3 text-center text-base font-medium text-white bg-indigo-500 hover:bg-indigo-400"
-          >
-            Email
-          </a>
+        <nav className="px-4 py-6 space-y-1">
+          {navLinks.map((link, i) => (
+            <a
+              key={link.href}
+              onClick={() => setOpen(false)}
+              href={link.href}
+              className="group flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium text-zinc-300 hover:text-white hover:bg-white/8 transition-all"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {link.label}
+            </a>
+          ))}
+          <div className="pt-4">
+            <a
+              onClick={() => setOpen(false)}
+              href="#contact"
+              className="btn-primary block text-center rounded-xl px-4 py-3.5 text-base font-semibold text-white relative z-0"
+            >
+              <span className="relative z-10">Hire Me</span>
+            </a>
+          </div>
         </nav>
       </aside>
-    </header>
+    </>
   );
 }
