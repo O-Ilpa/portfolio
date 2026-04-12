@@ -2,6 +2,28 @@ import "./index.css";
 import { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import LogoLoop from "./LogoLoop";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+} from "react-icons/si";
+
+const techLogos = [
+  { node: <SiReact color="" />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  {
+    node: <SiTypescript />,
+    title: "TypeScript",
+    href: "https://www.typescriptlang.org",
+  },
+  {
+    node: <SiTailwindcss />,
+    title: "Tailwind CSS",
+    href: "https://tailwindcss.com",
+  },
+];
 
 function useInView(options) {
   const ref = useRef(null);
@@ -16,7 +38,7 @@ function useInView(options) {
         const entry = entries[0];
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0.15, rootMargin: "0px", ...(options || {}) }
+      { threshold: 0.15, rootMargin: "0px", ...(options || {}) },
     );
 
     observer.observe(element);
@@ -312,7 +334,7 @@ function Hero() {
         </h1>
         <p className="mt-6 max-w-2xl text-zinc-300 animate-slide-up animation-delay-300">
           From slick UIs to solid backends, I enjoy bringing ideas to life with
-          React, Node.js, and the cloud. Always learning, always building — and
+          React, Node.js, and the cloud. Always learning, always building, and
           open to new opportunities.
         </p>
 
@@ -335,22 +357,20 @@ function Hero() {
 
         {/* Social Media Icons */}
         {/* Skills Icons */}
-        <div className="hidden md:flex mt-10 flex-wrap gap-6 animate-slide-up w-[700px] animation-delay-500">
-          {groups.flatMap((group) =>
-            group.items.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col items-center text-sm justify-between text-zinc-400"
-              >
-                {typeof item.icon === "string" ? (
-                  <i className={`${item.icon} text-4xl`} />
-                ) : (
-                  item.icon
-                )}
-                <span className="mt-1">{item.name}</span>
-              </div>
-            ))
-          )}
+        <div
+          className="mt-4"
+          style={{ height: "200px", position: "relative", overflow: "hidden" }}
+        >
+          <LogoLoop
+            logos={techLogos}
+            speed={60}
+            direction="left"
+            logoHeight={48}
+            gap={40}
+            pauseOnHover
+            scaleOnHover
+            ariaLabel="Technology partners"
+          />
         </div>
       </div>
     </section>
@@ -373,7 +393,7 @@ function About() {
             <p className="mt-4 text-zinc-300">
               I'm Omar Ilpa, a full-stack developer who loves turning ideas into
               clean, working apps. I enjoy React, Tailwind, Node.js, and
-              databases — but more than tools, I care about building things that
+              databases, but more than tools, I care about building things that
               feel fast, modern, and useful.
             </p>
           </Reveal>
@@ -386,16 +406,104 @@ function About() {
                 <li className="relative pl-10">
                   <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20"></span>
                   <div className="text-sm uppercase tracking-wider text-zinc-400">
-                    Sep 2025 — Present
+                    Dec 2025 — Present
+                  </div>
+                  <h3 className="mt-1 font-medium">
+                    Software Developer · GoMAXPAIN{" "}
+                    <i className="font-light">Remote, United States</i>
+                  </h3>
+                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
+                    <li>
+                      Engineered scalable web scraping systems collecting
+                      ~500,000 verified professional records across 7 U.S.
+                      states to support outbound B2B outreach.
+                    </li>
+                    <li>
+                      Developed resilient Playwright-based automation capable of
+                      multi-day execution, handling dynamic pages, retries, and
+                      failure recovery.
+                    </li>
+                    <li>
+                      Standardized, cleaned, and deduplicated large datasets to
+                      ensure accuracy, consistency, and production usability.
+                    </li>
+                    <li>
+                      Reduced reliance on unreliable legacy datasets by
+                      delivering internally-owned, high-quality lead data.
+                    </li>
+                    <li>
+                      Collaborated with internal teams to validate scraped data
+                      and provided front-end QA feedback during testing cycles.
+                    </li>
+                    <li>
+                      Translated Figma designs into production-ready web pages,
+                      ensuring visual accuracy and performance.
+                    </li>
+                    <li>
+                      Refactored and updated existing pages to improve
+                      responsiveness and maintain design consistency across
+                      breakpoints.
+                    </li>
+                  </ul>
+                  <p className="pt-3 text-sm text-zinc-400">
+                    <span className="font-semibold">Tech Stack:</span>{" "}
+                    Playwright, Python, Pandas, Web scraping, Automation,
+                    React, TailwindCSS, tsx
+                  </p>
+                </li>
+              </Reveal>
+
+              <Reveal>
+                <li className="relative pl-10">
+                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 ring-4 ring-zinc-600/20"></span>
+                  <div className="text-sm uppercase tracking-wider text-zinc-400">
+                    Sep 2025 — March 2026
                   </div>
                   <h3 className="mt-1 font-medium">
                     Part-Time Software Engineer · Spiritual Data{" "}
                     <i className="font-light">Remote (USA)</i>
                   </h3>
-                  <p className="mt-1 text-zinc-300">
-                    Working on real-world web services and dashboards. Improving
-                    developer workflows and delivering features that help the
-                    team move faster while keeping code clean.
+                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
+                    <li>
+                      Developing real-world web services and intuitive dashboards for centralized data management.
+                    </li>
+                    <li>
+                      Improving developer workflows and delivering features that enhance team velocity and code maintainability.
+                    </li>
+                  </ul>
+                </li>
+              </Reveal>
+
+              <Reveal>
+                <li className="relative pl-10">
+                  <span className="absolute left-2 top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 ring-4 ring-zinc-600/20"></span>
+                  <div className="text-sm uppercase tracking-wider text-zinc-400">
+                    Apr 2025 – May 2025
+                  </div>
+                  <h3 className="mt-1 font-medium">
+                    Full Stack Engineer · Tamayoz Real Estate{" "}
+                    <i className="font-light">Remote, Egypt</i>
+                  </h3>
+                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
+                    <li>
+                      Developed a full‑stack property management system including dynamic property show pages and admin CRUD.
+                    </li>
+                    <li>
+                      Added 4+ system modules enhancing property management workflows.
+                    </li>
+                    <li>
+                      Improved dashboard usability, reducing task completion time by ~35%.
+                    </li>
+                    <li>
+                      Built secure REST APIs with Express.js & MongoDB and optimized queries for ~20% faster responses.
+                    </li>
+                    <li>
+                      Developed a fully responsive interface using React and Tailwind CSS.
+                    </li>
+                  </ul>
+                  <p className="pt-3 text-sm text-zinc-400">
+                    <span className="font-semibold">Tech Stack:</span>{" "}
+                    MongoDB, Express.js, React.js, Tailwind CSS, JWT
                   </p>
                 </li>
               </Reveal>
@@ -409,13 +517,20 @@ function About() {
                   <h3 className="mt-1 font-medium">
                     Freelance & Personal Projects
                   </h3>
-                  <p className="mt-1 text-zinc-300">
-                    Built and deployed full-stack apps like a Real Estate
-                    Management System and a Notes App with authentication.
-                    Learned to design APIs, manage databases, and create
-                    responsive UIs while working independently and delivering
-                    results.
-                  </p>
+                  <ul className="mt-2 text-zinc-300 space-y-2 list-disc ml-4">
+                    <li>
+                      Built and deployed a full-stack <span className="text-white font-medium">Notes Application</span> featuring custom JWT authentication, email verification, and secure CRUD operations.
+                    </li>
+                    <li>
+                      Developed a real-time <span className="text-white font-medium">Live Chat App</span> utilizing WebSockets for instant room-based messaging and notifications.
+                    </li>
+                    <li>
+                      Engineered a <span className="text-white font-medium">Library Management System</span> with dynamic server-side rendering, complex data relationships, and advanced search filtering.
+                    </li>
+                    <li>
+                      Designed and launched several high-performance responsive landing pages, including the <span className="text-white font-medium">Keep It Green Initiative</span> and an <span className="text-white font-medium">Interactive Bookstore</span>, using Swiper.js for modern UI interactions.
+                    </li>
+                  </ul>
                 </li>
               </Reveal>
             </ol>
@@ -561,7 +676,7 @@ function Skills() {
       <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {groups.map((group) => (
           <Reveal key={group.title}>
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 shadow-2xl">
               <h3 className="font-medium">{group.title}</h3>
               <ul className="mt-4 grid grid-cols-2 gap-3">
                 {group.items.map((item) => (
@@ -738,7 +853,7 @@ function Projects() {
       id="projects"
       className="relative mx-auto max-w-6xl px-4 py-16 sm:py-24"
     >
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(99,102,241,0.2),rgba(24,24,27,0)_70%)]" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgba(99,102,241,0.2),rgba(24,24,27,0)_70%)]" />
 
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_100%,rgba(99,102,241,0.20),rgba(24,24,27,0)_70%)]" />
       <div className="flex items-end justify-between">
@@ -798,7 +913,7 @@ function Projects() {
                 <div className="mt-5 flex gap-3">
                   {/* <a className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors" href="#">Live</a> */}
                   <a
-                    className="text-sm text-zinc-400 hover:text-white transition-colors"
+                    className="text-sm text-zinc-400 underline hover:text-white transition-colors"
                     href={project.code}
                   >
                     Code
@@ -836,9 +951,9 @@ function Contact() {
     setSubmitStatus(null);
 
     try {
-      const serviceId = "service_x0ilvxf";
-      const templateId = "template_x52hzko";
-      const publicKey = "NLCqzCaTrd-8ZLZ5z";
+      const serviceId = "service_4vgwssi";
+      const templateId = "template_74pr8ad";
+      const publicKey = "QSIwJFPh1Z7C5_CSJ";
 
       const templateParams = {
         to_email: "omarilpa.eg@gmail.com",
@@ -868,7 +983,7 @@ function Contact() {
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_0%,rgba(99,102,241,0.20),rgba(24,24,27,0)_70%)]" />
       <Reveal>
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 shadow-2xl">
           <h2 className="text-2xl sm:text-3xl font-semibold">
             Let's build something
           </h2>
@@ -1019,14 +1134,23 @@ export default function App() {
       <footer className="border-t border-zinc-800 py-5 text-center text-sm text-zinc-500 animate-fade-in">
         © {new Date().getFullYear()} Omar Ilpa. All rights reserved.
         <div className="flex gap-4 justify-center mt-2 text-2xl text-zinc-400">
-  <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" className="hover:text-black">
-    <FaGithub />
-  </a>
-  <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
-    <FaLinkedin />
-  </a>
-</div>
-
+          <a
+            href="https://github.com/O-Ilpa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white"
+          >
+            <FaGithub />
+          </a>
+          <a
+            href="https://linkedin.com/in/o-ilpa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600"
+          >
+            <FaLinkedin />
+          </a>
+        </div>
       </footer>
     </div>
   );

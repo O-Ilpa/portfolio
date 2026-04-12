@@ -63,9 +63,9 @@ When submitted, the form sends a beautifully formatted HTML email to `omarilpa.e
 
 The email service is configured with:
 - **Service**: Gmail SMTP
-- **From**: omarilpa09@gmail.com
-- **To**: omarilpa.eg@gmail.com
-- **App Password**: fdecormslqjlysws
+- **From**: [REDACTED]
+- **To**: [REDACTED]
+- **App Password**: [REDACTED] (Configure in environment variables)
 
 ## Deployment
 
