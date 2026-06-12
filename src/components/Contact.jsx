@@ -80,7 +80,7 @@ export default function Contact() {
         {
           to_email: "omarilpa.eg@gmail.com",
           from_name: formData.name,
-          from_email: formData.email,
+          email_id: formData.email,
           phone: formData.phone,
           message: formData.message,
           reply_to: formData.email,
